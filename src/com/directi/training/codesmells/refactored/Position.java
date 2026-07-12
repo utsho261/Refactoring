@@ -1,6 +1,5 @@
 package com.directi.training.codesmells.refactored;
 
-
 public class Position
 {
     private final int _row;
@@ -22,10 +21,13 @@ public class Position
         return _column;
     }
 
-    //Fixes another instance of Feature Envy Code Smell
+    // Fixed Feature Envy Code Smell by moving translation behavior to Position.
     public Position translatedPosition(Direction direction)
     {
-        return new Position(getRow() + direction.getRowOffset(), getColumn() + direction.getColumnOffset());
+        return new Position(
+                _row + direction.getRowOffset(),
+                _column + direction.getColumnOffset()
+        );
     }
 
     @Override
@@ -33,7 +35,12 @@ public class Position
     {
         if (obj == null || !(obj instanceof Position))
             return false;
+
         Position otherPosition = (Position) obj;
-        return this == obj || (_row == otherPosition.getRow() && _column == otherPosition.getColumn());
+
+        return this == obj
+                || (_row == otherPosition.getRow()
+                && _column == otherPosition.getColumn());
     }
+
 }

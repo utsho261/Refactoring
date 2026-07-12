@@ -1,7 +1,7 @@
 package com.directi.training.codesmells;
 
-import com.directi.training.codesmells.smelly.chess.GameEngine;
-import com.directi.training.codesmells.smelly.chess.Player;
+import com.directi.training.codesmells.refactored.chess.GameEngine;
+import com.directi.training.codesmells.refactored.chess.Player;
 
 import java.util.Scanner;
 

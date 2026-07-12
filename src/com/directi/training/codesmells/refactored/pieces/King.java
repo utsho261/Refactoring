@@ -10,10 +10,12 @@ public class King extends Piece
         super(color);
     }
 
+    // Fixed Switch-Case Code Smell by moving the king movement logic to the King class.
     @Override
     public boolean isValidMove(Position from, Position to)
     {
-        return (Math.abs(from.getRow() - to.getRow()) == 1) && (Math.abs(from.getColumn() - to.getColumn()) == 1);
+        return Math.abs(from.getRow() - to.getRow()) == 1
+                && Math.abs(from.getColumn() - to.getColumn()) == 1;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Player
         return _name;
     }
 
-    //Fixes Improper Naming Code Smell
+    // Solve Improper Naming
     public void incrementGamesWon()
     {
         _gamesWon++;

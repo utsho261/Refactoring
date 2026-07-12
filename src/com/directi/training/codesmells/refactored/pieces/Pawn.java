@@ -10,13 +10,16 @@ public class Pawn extends Piece
         super(color);
     }
 
+    // Fixed Switch-Case Code Smell by moving the pawn movement logic to the Pawn class.
     @Override
     public boolean isValidMove(Position from, Position to)
     {
         int columnsMoved = Math.abs(to.getColumn() - from.getColumn());
         int rowsMoved = Math.abs(to.getRow() - from.getRow());
+
         return isForwardMove(from, to)
-               && ((columnsMoved <= 1 && rowsMoved == 1) || (columnsMoved == 0 && rowsMoved == 2));
+                && ((columnsMoved <= 1 && rowsMoved == 1)
+                || (columnsMoved == 0 && rowsMoved == 2));
     }
 
     private boolean isForwardMove(Position from, Position to)
@@ -24,43 +27,69 @@ public class Pawn extends Piece
         switch (getColor()) {
             case WHITE:
                 return to.getRow() < from.getRow();
+
             case BLACK:
                 return to.getRow() > from.getRow();
+
             default:
                 return false;
         }
     }
 
-    public boolean isValidMoveGivenContext(Position from,
-                                           Position to,
-                                           boolean atInitialPosition,
-                                           boolean opponentPieceAtForwardLeft,
-                                           boolean opponentPieceAtForwardRight)
+    public boolean isValidMoveGivenContext(
+            Position from,
+            Position to,
+            boolean atInitialPosition,
+            boolean opponentPieceAtForwardLeft,
+            boolean opponentPieceAtForwardRight)
     {
         return isForwardMove(from, to)
-               && isTakingAllowedNumberOfForwardSteps(from, to, atInitialPosition)
-               && isTakingAllowedNumberOfSidewaysSteps(from, to, opponentPieceAtForwardLeft, opponentPieceAtForwardRight);
+                && isTakingAllowedNumberOfForwardSteps(
+                from,
+                to,
+                atInitialPosition
+        )
+                && isTakingAllowedNumberOfSidewaysSteps(
+                from,
+                to,
+                opponentPieceAtForwardLeft,
+                opponentPieceAtForwardRight
+        );
     }
 
-    private boolean isTakingAllowedNumberOfForwardSteps(Position from, Position to, boolean atInitialPosition)
+    private boolean isTakingAllowedNumberOfForwardSteps(
+            Position from,
+            Position to,
+            boolean atInitialPosition)
     {
         int rowsAbsDiff = Math.abs(to.getRow() - from.getRow());
-        return rowsAbsDiff > 0 && (rowsAbsDiff <= (atInitialPosition ? 2 : 1));
+
+        return rowsAbsDiff > 0
+                && rowsAbsDiff <= (atInitialPosition ? 2 : 1);
     }
 
-    private boolean isTakingAllowedNumberOfSidewaysSteps(Position from,
-                                                         Position to,
-                                                         boolean opponentPieceAtForwardLeft,
-                                                         boolean opponentPieceAtForwardRight)
+    private boolean isTakingAllowedNumberOfSidewaysSteps(
+            Position from,
+            Position to,
+            boolean opponentPieceAtForwardLeft,
+            boolean opponentPieceAtForwardRight)
     {
         int columnsDiff = to.getColumn() - from.getColumn();
-        if (columnsDiff == -1)
-            return (opponentPieceAtForwardLeft && getColor() == Color.WHITE)
-                    || (opponentPieceAtForwardRight && getColor() == Color.BLACK);
-        if (columnsDiff == 1) {
-            return (opponentPieceAtForwardRight && getColor() == Color.WHITE)
-                    || (opponentPieceAtForwardLeft && getColor() == Color.BLACK);
+
+        if (columnsDiff == -1) {
+            return (opponentPieceAtForwardLeft
+                    && getColor() == Color.WHITE)
+                    || (opponentPieceAtForwardRight
+                    && getColor() == Color.BLACK);
         }
+
+        if (columnsDiff == 1) {
+            return (opponentPieceAtForwardRight
+                    && getColor() == Color.WHITE)
+                    || (opponentPieceAtForwardLeft
+                    && getColor() == Color.BLACK);
+        }
+
         return columnsDiff == 0;
     }
 

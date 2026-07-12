@@ -1,10 +1,10 @@
 package com.directi.training.codesmells.refactored.pieces;
 
 import com.directi.training.codesmells.refactored.Color;
-import com.directi.training.codesmells.refactored.chess.MoveUtil;
 import com.directi.training.codesmells.refactored.Position;
+import com.directi.training.codesmells.refactored.chess.MoveUtil;
 
-//Fixed Collapsing Hierarchy (another instance of lazy-class)
+// Fixed Collapse Hierarchy Code Smell by removing the unnecessary LeftRook and RightRook subclasses.
 public class Rook extends Piece
 {
     public Rook(Color color)
@@ -12,6 +12,8 @@ public class Rook extends Piece
         super(color);
     }
 
+    // Fixed Switch-Case Code Smell by moving the rook movement logic to the Rook class.
+    @Override
     public boolean isValidMove(Position from, Position to)
     {
         return MoveUtil.isHorizontalOrVerticalMove(from, to);

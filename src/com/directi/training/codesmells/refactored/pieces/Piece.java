@@ -5,7 +5,7 @@ import com.directi.training.codesmells.refactored.Position;
 
 public abstract class Piece
 {
-    private Color _color; //Fixed Indecent Exposure Code Smell by making field private
+    public Color _color;
 
     public Piece(Color color)
     {
@@ -17,6 +17,6 @@ public abstract class Piece
         return _color;
     }
 
-    //Fixed Switch-case code smell through polymorphism. Note that type field has also been removed.
+    // Fixed Switch-Case Code Smell through polymorphism. The type field has also been removed.
     public abstract boolean isValidMove(Position from, Position to);
 }
